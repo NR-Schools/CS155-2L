@@ -5,6 +5,11 @@
  */
 package View;
 
+import App.RecordViewing;
+import Model.AccountValidateModel;
+import Repository.RepositoryProvider;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author hp
@@ -14,8 +19,12 @@ public class LoginView extends javax.swing.JFrame {
     /**
      * Creates new form LoginView
      */
+    private RepositoryProvider provider;
+    
     public LoginView() {
         initComponents();
+        
+        provider = new RepositoryProvider();
     }
 
     /**
@@ -27,21 +36,227 @@ public class LoginView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        logBackground3 = new javax.swing.JPanel();
+        logPage3 = new javax.swing.JPanel();
+        logoSide3 = new javax.swing.JPanel();
+        logo3 = new javax.swing.JLabel();
+        description7 = new javax.swing.JLabel();
+        description8 = new javax.swing.JLabel();
+        loginTitle = new javax.swing.JLabel();
+        userTF = new javax.swing.JTextField();
+        createBT = new javax.swing.JButton();
+        loginBT = new javax.swing.JButton();
+        divider1 = new javax.swing.JPanel();
+        userL = new javax.swing.JLabel();
+        passL = new javax.swing.JLabel();
+        divider2 = new javax.swing.JPanel();
+        forgotBT = new javax.swing.JButton();
+        passTF = new javax.swing.JPasswordField();
+        E1 = new javax.swing.JLabel();
+        E2 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1440, 1024));
+
+        logBackground3.setBackground(new java.awt.Color(199, 149, 0));
+
+        logPage3.setBackground(new java.awt.Color(38, 38, 38));
+        logPage3.setForeground(new java.awt.Color(119, 150, 109));
+        logPage3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        logoSide3.setBackground(new java.awt.Color(251, 215, 9));
+
+        logo3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/logo.png"))); // NOI18N
+
+        description7.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        description7.setText("An efficient, fast, and reliable");
+
+        description8.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        description8.setText("  Sales Management System");
+
+        javax.swing.GroupLayout logoSide3Layout = new javax.swing.GroupLayout(logoSide3);
+        logoSide3.setLayout(logoSide3Layout);
+        logoSide3Layout.setHorizontalGroup(
+            logoSide3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoSide3Layout.createSequentialGroup()
+                .addContainerGap(71, Short.MAX_VALUE)
+                .addComponent(logo3, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70))
+            .addGroup(logoSide3Layout.createSequentialGroup()
+                .addGap(116, 116, 116)
+                .addGroup(logoSide3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(description7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(description8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        logoSide3Layout.setVerticalGroup(
+            logoSide3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logoSide3Layout.createSequentialGroup()
+                .addGap(95, 95, 95)
+                .addComponent(logo3, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(description7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(description8)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        logPage3.add(logoSide3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 600));
+
+        loginTitle.setFont(new java.awt.Font("Trebuchet MS", 1, 43)); // NOI18N
+        loginTitle.setForeground(new java.awt.Color(255, 255, 255));
+        loginTitle.setText("LOGIN");
+        logPage3.add(loginTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(638, 71, -1, 52));
+
+        userTF.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        logPage3.add(userTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 206, 258, 40));
+
+        createBT.setBackground(new java.awt.Color(251, 215, 9));
+        createBT.setFont(new java.awt.Font("Trebuchet MS", 1, 13)); // NOI18N
+        createBT.setForeground(new java.awt.Color(38, 38, 38));
+        createBT.setText("SIGN-UP");
+        createBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createBTActionPerformed(evt);
+            }
+        });
+        logPage3.add(createBT, new org.netbeans.lib.awtextra.AbsoluteConstraints(632, 462, 150, 43));
+
+        loginBT.setBackground(new java.awt.Color(251, 215, 9));
+        loginBT.setFont(new java.awt.Font("Trebuchet MS", 1, 13)); // NOI18N
+        loginBT.setForeground(new java.awt.Color(38, 38, 38));
+        loginBT.setText("LOGIN");
+        loginBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginBTActionPerformed(evt);
+            }
+        });
+        logPage3.add(loginBT, new org.netbeans.lib.awtextra.AbsoluteConstraints(652, 364, 110, 43));
+
+        divider1.setBackground(new java.awt.Color(251, 215, 9));
+
+        javax.swing.GroupLayout divider1Layout = new javax.swing.GroupLayout(divider1);
+        divider1.setLayout(divider1Layout);
+        divider1Layout.setHorizontalGroup(
+            divider1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 280, Short.MAX_VALUE)
+        );
+        divider1Layout.setVerticalGroup(
+            divider1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 8, Short.MAX_VALUE)
+        );
+
+        logPage3.add(divider1, new org.netbeans.lib.awtextra.AbsoluteConstraints(567, 141, -1, -1));
+
+        userL.setForeground(new java.awt.Color(255, 255, 255));
+        userL.setText("Username");
+        logPage3.add(userL, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 183, -1, -1));
+
+        passL.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        passL.setForeground(new java.awt.Color(255, 255, 255));
+        passL.setText("Password");
+        logPage3.add(passL, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 273, -1, -1));
+
+        divider2.setBackground(new java.awt.Color(251, 215, 9));
+
+        javax.swing.GroupLayout divider2Layout = new javax.swing.GroupLayout(divider2);
+        divider2.setLayout(divider2Layout);
+        divider2Layout.setHorizontalGroup(
+            divider2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 280, Short.MAX_VALUE)
+        );
+        divider2Layout.setVerticalGroup(
+            divider2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 8, Short.MAX_VALUE)
+        );
+
+        logPage3.add(divider2, new org.netbeans.lib.awtextra.AbsoluteConstraints(567, 420, -1, -1));
+
+        forgotBT.setBackground(new java.awt.Color(251, 215, 9));
+        forgotBT.setFont(new java.awt.Font("Trebuchet MS", 1, 13)); // NOI18N
+        forgotBT.setForeground(new java.awt.Color(38, 38, 38));
+        forgotBT.setText("FORGOT PASSWORD");
+        forgotBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                forgotBTActionPerformed(evt);
+            }
+        });
+        logPage3.add(forgotBT, new org.netbeans.lib.awtextra.AbsoluteConstraints(622, 523, 170, 43));
+
+        passTF.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        logPage3.add(passTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 296, 258, 40));
+
+        E1.setBackground(new java.awt.Color(255, 51, 51));
+        E1.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
+        E1.setForeground(new java.awt.Color(255, 51, 51));
+        E1.setText("INVALID INPUT");
+        logPage3.add(E1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 250, -1, -1));
+
+        E2.setBackground(new java.awt.Color(255, 51, 51));
+        E2.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
+        E2.setForeground(new java.awt.Color(255, 51, 51));
+        E2.setText("INVALID INPUT");
+        logPage3.add(E2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 340, -1, -1));
+
+        javax.swing.GroupLayout logBackground3Layout = new javax.swing.GroupLayout(logBackground3);
+        logBackground3.setLayout(logBackground3Layout);
+        logBackground3Layout.setHorizontalGroup(
+            logBackground3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logBackground3Layout.createSequentialGroup()
+                .addContainerGap(123, Short.MAX_VALUE)
+                .addComponent(logPage3, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(109, 109, 109))
+        );
+        logBackground3Layout.setVerticalGroup(
+            logBackground3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logBackground3Layout.createSequentialGroup()
+                .addContainerGap(118, Short.MAX_VALUE)
+                .addComponent(logPage3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(107, 107, 107))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(logBackground3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(logBackground3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void createBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBTActionPerformed
+        this.dispose();
+        new CreateAccountView().setVisible(true);
+    }//GEN-LAST:event_createBTActionPerformed
+
+    private void loginBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBTActionPerformed
+        
+        AccountValidateModel accountValidate = provider.getAccountRepo().loginAccountInputCheck(
+                userTF.getText().trim(), passTF.getText().trim(),
+                E1, E2
+        );
+        
+        if(!accountValidate.isValid()) return;
+        
+        if(provider.getAccountRepo().logIn(accountValidate.getModel())) {
+            JOptionPane.showMessageDialog(null, "Login Successfully.");
+            this.dispose();
+            new RecordView().setVisible(true);
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Incorrect username or password. Please try again."); 
+        }
+    }//GEN-LAST:event_loginBTActionPerformed
+
+    private void forgotBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgotBTActionPerformed
+        this.dispose();
+        new ForgotPasswordView().setVisible(true);
+    }//GEN-LAST:event_forgotBTActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +294,23 @@ public class LoginView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel E1;
+    private javax.swing.JLabel E2;
+    private javax.swing.JButton createBT;
+    private javax.swing.JLabel description7;
+    private javax.swing.JLabel description8;
+    private javax.swing.JPanel divider1;
+    private javax.swing.JPanel divider2;
+    private javax.swing.JButton forgotBT;
+    private javax.swing.JPanel logBackground3;
+    private javax.swing.JPanel logPage3;
+    private javax.swing.JButton loginBT;
+    private javax.swing.JLabel loginTitle;
+    private javax.swing.JLabel logo3;
+    private javax.swing.JPanel logoSide3;
+    private javax.swing.JLabel passL;
+    private javax.swing.JPasswordField passTF;
+    private javax.swing.JLabel userL;
+    private javax.swing.JTextField userTF;
     // End of variables declaration//GEN-END:variables
 }
