@@ -7,27 +7,30 @@ package Repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author --
  */
 public abstract class BaseRepository {
-    private final String USERNAME = "<DATABASE_USERNAME>";
-    private final String PASSWORD = "<DATABASE_PASSWORD>";
+    private final String USERNAME = "sql12602216";
+    private final String PASSWORD = "A9FDh7glQZ";
     
     // Assuming that database to be used is in local, for remote connections, replace "localhost" with the database url
-    private final String LINK = "jdbc:mysql://localhost:3306?useTimezone=true&serverTimezone=GMT%2B8";
+    private final String LINK = "jdbc:mysql://sql12.freemysqlhosting.net:3306?useTimezone=true&serverTimezone=GMT%2B8";
     private final String CONNECTOR = "com.mysql.cj.jdbc.Driver";
     
-    protected Connection createSQLConnection() throws Exception {
+    protected Connection createSQLConnection() throws SQLException, ClassNotFoundException  {
         Class.forName(CONNECTOR);
-        
+            
         Connection sql_con = DriverManager.getConnection(LINK, USERNAME, PASSWORD);
             
         Statement SetDB = sql_con.createStatement();
-        SetDB.executeUpdate("USE cs155_2l_db"); // Change database name if necessary
+        SetDB.executeUpdate("USE sql12602216"); // Change database name if necessary
             
         return sql_con;
     }
