@@ -229,16 +229,16 @@ public class CreateAccountView extends javax.swing.JFrame {
         logBackgroundLayout.setHorizontalGroup(
             logBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(logBackgroundLayout.createSequentialGroup()
-                .addGap(220, 220, 220)
+                .addGap(114, 114, 114)
                 .addComponent(logPage, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
         logBackgroundLayout.setVerticalGroup(
             logBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(logBackgroundLayout.createSequentialGroup()
-                .addGap(212, 212, 212)
+                .addGap(64, 64, 64)
                 .addComponent(logPage, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(161, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
