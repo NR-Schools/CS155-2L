@@ -10,10 +10,84 @@ CREATE TABLE AccountTable (
     ContactNumber VARCHAR(20),
 	EmailAddress VARCHAR(100)
 );
-
 DROP TABLE AccountTable;
 
--- test queries
-SELECT COUNT(Id) AS "Rows" FROM AccountTable;
-SELECT * FROM AccountTable WHERE Username="aaaaaaaaaa" AND Password="a";
-SELECT * FROM AccountTable;
+
+-- This will only have two default entries: Photocard and Photopaper
+-- This will not be actively used but instead will only act as a constraint and a lookup table for product table
+CREATE TABLE ProductTypeTable (
+	Id INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(100)
+);
+DROP TABLE ProductTypeTable;
+SELECT * FROM ProductTypeTable;
+
+-- Table for Products Available under a specific product type
+CREATE TABLE ProductTable (
+	Id INT PRIMARY KEY AUTO_INCREMENT,
+    TypeId INT,
+    Name VARCHAR(100),
+    Sales_Multiplier DOUBLE,
+    Profit_Multiplier DOUBLE,
+    FOREIGN KEY (TypeId) REFERENCES ProductTypeTable(Id) ON DELETE CASCADE
+);
+DROP TABLE ProductTable;
+SELECT * FROM ProductTable;
+
+-- Table for Product Transaction Logs
+CREATE TABLE ProductEntryTable (
+	Id INT PRIMARY KEY AUTO_INCREMENT,
+    ProductId INT,
+    FOREIGN KEY (ProductId) REFERENCES ProductTable(Id) ON DELETE CASCADE,
+    Qty INT,
+    EntryDate TIMESTAMP
+);
+DROP TABLE ProductEntryTable;
+SELECT * FROM ProductEntryTable;
+
+
+-- Test Data
+INSERT INTO ProductTypeTable VALUES (null, "Photocard");
+INSERT INTO ProductTypeTable VALUES (null, "Photopaper");
+INSERT INTO ProductTable VALUES (null, 1, "Glossy", 10, 5);
+INSERT INTO ProductTable VALUES (null, 1, "Canvas Matte", 12, 5);
+INSERT INTO ProductTable VALUES (null, 1, "Leather", 12, 5);
+INSERT INTO ProductTable VALUES (null, 1, "Glitter", 15, 10);
+INSERT INTO ProductTable VALUES (null, 1, "3D", 15, 10);
+INSERT INTO ProductTable VALUES (null, 1, "Broken Glass Holo", 18, 10);
+INSERT INTO ProductTable VALUES (null, 1, "Holo", 18, 10);
+INSERT INTO ProductTable VALUES (null, 2, "3R Satin", 18, 8);
+INSERT INTO ProductTable VALUES (null, 2, "4R Satin", 25, 12);
+INSERT INTO ProductTable VALUES (null, 2, "4R Glossy", 25, 12);
+INSERT INTO ProductTable VALUES (null, 2, "4R Pearl Holo", 25, 11);
+INSERT INTO ProductTable VALUES (null, 2, "5R Satin", 30, 15);
+INSERT INTO ProductTable VALUES (null, 2, "A4 Glossy", 50, 25);
+INSERT INTO ProductTable VALUES (null, 2, "A4 Satin", 50, 25);
+
+
+INSERT INTO ProductEntryTable VALUES (null, 2, 20, "2023/3/4");
+INSERT INTO ProductEntryTable VALUES (null, 1, 12, "2023/3/4");
+INSERT INTO ProductEntryTable VALUES (null, 3, 10, "2023/3/4");
+INSERT INTO ProductEntryTable VALUES (null, 3, 50, "2023/2/4");
+
+
+-- Test Queries
+-- General Query, just change value for ProductTypeTable.Name in WHERE clause  
+SELECT 
+	ProductTable.Id AS Id,
+    ProductTypeTable.Name AS Type, 
+    ProductTable.Name, 
+    IFNULL(SUM(Qty), 0) AS Qty, 
+    IFNULL(SUM(Qty*Sales_Multiplier), 0) AS Sales, 
+    IFNULL(SUM(Qty*Profit_Multiplier), 0) AS Profit
+FROM 
+    ProductTable
+    LEFT JOIN ProductEntryTable ON ProductTable.Id = ProductEntryTable.ProductId
+    JOIN ProductTypeTable ON ProductTable.TypeId = ProductTypeTable.Id
+WHERE
+	ProductTypeTable.Name = ProductTypeTable.Name
+GROUP BY 
+    ProductTable.Id;
+
+
+SELECT * FROM ProductTable WHERE TypeId=1;
