@@ -1,5 +1,8 @@
 package View;
 
+import java.util.*;
+import Model.ProductSummary;
+import Repository.RepositoryProvider;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -11,13 +14,20 @@ import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 public class RecordView extends javax.swing.JFrame {
     
     
     int i =0;
+    
+    private RepositoryProvider provider;
+    
     public RecordView() {
         initComponents(); 
+        
+        provider = new RepositoryProvider();
+        
         logoSide.setBackground(new Color(251,215,9,255));
         Border noBorder = new LineBorder(new Color(251,215,9,255));
         
@@ -170,7 +180,7 @@ public class RecordView extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jScrollPane3 = new javax.swing.JScrollPane();
-        table2 = new javax.swing.JTable();
+        table1 = new javax.swing.JTable();
         jLabel44 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
@@ -331,7 +341,7 @@ public class RecordView extends javax.swing.JFrame {
 
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/targetIcon.png"))); // NOI18N
         jPanel2.add(jLabel20);
-        jLabel20.setBounds(280, 10, 50, 48);
+        jLabel20.setBounds(280, 10, 50, 96);
 
         newGoalButton.setBackground(new java.awt.Color(38, 38, 38));
         newGoalButton.setFont(new java.awt.Font("Trebuchet MS", 1, 13)); // NOI18N
@@ -442,11 +452,11 @@ public class RecordView extends javax.swing.JFrame {
 
         hourSP.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
         targetForm.add(hourSP);
-        hourSP.setBounds(220, 150, 64, 40);
+        hourSP.setBounds(220, 150, 45, 40);
 
         minutesSP.setModel(new javax.swing.SpinnerNumberModel(1, 1, 59, 1));
         targetForm.add(minutesSP);
-        minutesSP.setBounds(300, 150, 64, 40);
+        minutesSP.setBounds(300, 150, 45, 40);
 
         jLabel26.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(38, 38, 38));
@@ -841,7 +851,7 @@ public class RecordView extends javax.swing.JFrame {
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-        table2.setModel(new javax.swing.table.DefaultTableModel(
+        table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -898,7 +908,7 @@ public class RecordView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(table2);
+        jScrollPane3.setViewportView(table1);
 
         jScrollPane5.setViewportView(jScrollPane3);
 
@@ -950,7 +960,31 @@ public class RecordView extends javax.swing.JFrame {
     }//GEN-LAST:event_addRecordMouseExited
 
     private void PPPviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PPPviewActionPerformed
-        jLabel44.setText("PHOTO PAPER PRINTING");
+        // TODO add your handling code here:
+        //jLabel44.setText("PHOTO PAPER PRINTING");
+
+        // Request To DB
+        ArrayList<ProductSummary> prod_sum_arr = provider.getProductRepo().getProductSummaries("Photopaper");
+
+        // Aggregate to Single Value
+        int TotalQty = 0;
+        double TotalSales = 0;
+        double TotalProfit = 0;
+
+        DefaultTableModel tableModel = (DefaultTableModel)table1.getModel();
+        tableModel.setRowCount(0);
+
+        for( ProductSummary prod_sum : prod_sum_arr ) {
+            tableModel.addRow(
+                    new Object[]{
+                        prod_sum.getProductId(),
+                        prod_sum.getName(),
+                        prod_sum.getQty(),
+                        prod_sum.getSales(),
+                        prod_sum.getProfit()
+                    }
+            );
+        }
     }//GEN-LAST:event_PPPviewActionPerformed
 
     private void PPPviewMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PPPviewMouseExited
@@ -987,7 +1021,24 @@ public class RecordView extends javax.swing.JFrame {
         PPPtotalSold.setVisible(true);
         PPPview.setVisible(false);
         
-    
+        // Request To DB
+        ArrayList<ProductSummary> prod_sum_arr = provider.getProductRepo().getProductSummaries("Photopaper");
+
+        // Aggregate to Single Value
+        int TotalQty = 0;
+        double TotalSales = 0;
+        double TotalProfit = 0;
+
+        for( ProductSummary prod_sum : prod_sum_arr ) {
+            TotalQty += prod_sum.getQty();
+            TotalSales += prod_sum.getSales();
+            TotalProfit += prod_sum.getProfit();
+        }
+
+        // Show Totals
+        PPPoverallSales.setText(Double.toString(TotalSales));
+        PPPoverallProfit.setText(Double.toString(TotalProfit));
+        PPPtotalSold.setText(Integer.toString(TotalQty));
     }//GEN-LAST:event_jPanel14MouseEntered
 
     private void setGoalButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setGoalButtonMouseExited
@@ -1024,7 +1075,24 @@ public class RecordView extends javax.swing.JFrame {
         CPPtotalSold.setVisible(true);
         CPPview1.setVisible(false);
         
-        
+        // Request To DB
+        ArrayList<ProductSummary> prod_sum_arr = provider.getProductRepo().getProductSummaries("Photocard");
+
+        // Aggregate to Single Value
+        int TotalQty = 0;
+        double TotalSales = 0;
+        double TotalProfit = 0;
+
+        for( ProductSummary prod_sum : prod_sum_arr ) {
+            TotalQty += prod_sum.getQty();
+            TotalSales += prod_sum.getSales();
+            TotalProfit += prod_sum.getProfit();
+        }
+
+        // Show Totals
+        CPPoverallSales.setText(Double.toString(TotalSales));
+        CPPoverallProfit.setText(Double.toString(TotalProfit));
+        CPPtotalSold.setText(Integer.toString(TotalQty));
     }//GEN-LAST:event_jPanel17MouseEntered
 
     private void addRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRecordActionPerformed
@@ -1061,7 +1129,30 @@ public class RecordView extends javax.swing.JFrame {
     }//GEN-LAST:event_CPPview1MouseExited
 
     private void CPPview1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CPPview1ActionPerformed
-        jLabel44.setText("COSCARD/PHOTOCARD");
+        //jLabel44.setText("COSCARD/PHOTOCARD");
+        
+        // Request To DB
+        ArrayList<ProductSummary> prod_sum_arr = provider.getProductRepo().getProductSummaries("Photocard");
+
+        // Aggregate to Single Value
+        int TotalQty = 0;
+        double TotalSales = 0;
+        double TotalProfit = 0;
+
+        DefaultTableModel tableModel = (DefaultTableModel)table1.getModel();
+        tableModel.setRowCount(0);
+
+        for( ProductSummary prod_sum : prod_sum_arr ) {
+            tableModel.addRow(
+                    new Object[]{
+                        prod_sum.getProductId(),
+                        prod_sum.getName(),
+                        prod_sum.getQty(),
+                        prod_sum.getSales(),
+                        prod_sum.getProfit()
+                    }
+            );
+        }
     }//GEN-LAST:event_CPPview1ActionPerformed
 
     private void setGoalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setGoalButtonActionPerformed
@@ -1273,7 +1364,7 @@ public class RecordView extends javax.swing.JFrame {
     private javax.swing.JButton resetButton;
     private javax.swing.JButton setGoalButton;
     private javax.swing.JButton signOut;
-    private javax.swing.JTable table2;
+    private javax.swing.JTable table1;
     private javax.swing.JLabel targetDate;
     private javax.swing.JPanel targetForm;
     public javax.swing.JTextField targetSales;

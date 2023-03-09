@@ -1,6 +1,8 @@
 package View;
 
 
+import Model.ProductEntryModel;
+import Repository.RepositoryProvider;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
@@ -22,6 +25,8 @@ import javax.swing.border.LineBorder;
 public class AddRecordView extends javax.swing.JFrame {
     
     String a,b;
+    
+    private RepositoryProvider provider;
     
     public AddRecordView() {
         initComponents();
@@ -74,10 +79,10 @@ public class AddRecordView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         printingType = new javax.swing.JLabel();
-        productName = new javax.swing.JComboBox<>();
-        jSpinner1 = new javax.swing.JSpinner();
+        productType = new javax.swing.JComboBox<>();
+        QtySpinner = new javax.swing.JSpinner();
         jLabel8 = new javax.swing.JLabel();
-        cbCPP = new javax.swing.JComboBox<>();
+        productNameCB = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         cbPPP = new javax.swing.JComboBox<>();
         submitBut = new javax.swing.JButton();
@@ -289,27 +294,27 @@ public class AddRecordView extends javax.swing.JFrame {
         printingType.setText("PRINTING TYPE:");
         logoSide5.add(printingType, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 230, -1));
 
-        productName.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        productName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Coscard/Photocard Printing", "Photo Paper Printing" }));
-        productName.setBorder(null);
-        productName.setFocusable(false);
-        productName.addActionListener(new java.awt.event.ActionListener() {
+        productType.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
+        productType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Coscard/Photocard Printing", "Photo Paper Printing" }));
+        productType.setBorder(null);
+        productType.setFocusable(false);
+        productType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                productNameActionPerformed(evt);
+                productTypeActionPerformed(evt);
             }
         });
-        logoSide5.add(productName, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 230, 430, 30));
+        logoSide5.add(productType, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 230, 430, 30));
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
-        logoSide5.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 440, 70, 30));
+        QtySpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        logoSide5.add(QtySpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 440, 70, 30));
 
         jLabel8.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("PRODUCT NAME:");
         logoSide5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 190, -1));
 
-        cbCPP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Glossy", "Canvas Matte", "Leather", "Glitter", "3D", "Broken Glass Holo", "Holo" }));
-        logoSide5.add(cbCPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 340, 130, 30));
+        productNameCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Glossy", "Canvas Matte", "Leather", "Glitter", "3D", "Broken Glass Holo", "Holo" }));
+        logoSide5.add(productNameCB, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 340, 130, 30));
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -403,24 +408,86 @@ public class AddRecordView extends javax.swing.JFrame {
 
     private void submitButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButActionPerformed
         // TODO add your handling code here:
-       
+        int productTypeInt = productType.getSelectedIndex() +1;
+        int productNameInt = productNameCB.getSelectedIndex() +1;
+
+        // Since Both are 7
+        if (productTypeInt == 2) productNameInt += 7;
+
+        // Check if Qty is valid
+        int QtyInt;
+        try {
+            QtyInt = Integer.parseInt(QtySpinner.getValue().toString());
+        }
+        catch (NumberFormatException ex) {
+            return;
+        }
+
+        // Submit To DB
+        ProductEntryModel productEntry = new ProductEntryModel();
+        productEntry.setProductId(productNameInt);
+        productEntry.setQty(QtyInt);
+        productEntry.setEntryDate(new Timestamp(new java.util.Date().getTime()));
+
+        provider.getProductRepo().submitProductEntry(productEntry);
+
+        JOptionPane.showMessageDialog(null, "Success.");
       
     }//GEN-LAST:event_submitButActionPerformed
 
-    private void productNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productNameActionPerformed
-        a = productName.getSelectedItem().toString();
+    private void productTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productTypeActionPerformed
+        int productTypeInt = productType.getSelectedIndex() +1;
+
+        // If Data is Hardcoded
+        String[] PhotoPaperList = new String[] {
+            "3R Satin",
+            "4R Satin",
+            "4R Glossy",
+            "4R Pearl Holo",
+            "5R Satin",
+            "A4 Glossy",
+            "A4 Satin"
+        };
+
+        String[] PhotoCardList = new String[] {
+            "Glossy",
+            "Canvas Matte",
+            "Leather",
+            "Glitter",
+            "3D",
+            "Broken Glass Holo",
+            "Holo"
+        };
+
+        productNameCB.removeAllItems();
+
+        if (productTypeInt == 1) {
+            for ( String product : PhotoCardList ) {
+                productNameCB.addItem(product);
+            }
+        }
+        else if (productTypeInt == 2) {
+            for ( String product : PhotoPaperList ) {
+                productNameCB.addItem(product);
+            }
+        }
+
+
+
+        /*
+        // If Data Needs to come from database
+        // Update ComboBox
+        ArrayList<ProductModel> product_list = provider.getProductRepo().getProducts(productTypeInt);
         
+        // Load Contents to CB
+        productNameCB.removeAllItems();
         
-        if(a == "Photo Paper Printing"){
-            cbPPP.setVisible(true);
-            cbCPP.setVisible(false);
+        for ( ProductModel product : product_list ) {
+            productNameCB.addItem(product.getName());
         }
         
-        if(a == "Coscard/Photocard Printing"){
-            cbPPP.setVisible(false);
-            cbCPP.setVisible(true);
-        }
-    }//GEN-LAST:event_productNameActionPerformed
+        */
+    }//GEN-LAST:event_productTypeActionPerformed
 
     private void submitButMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitButMouseEntered
         submitBut.setBackground(Color.WHITE);
@@ -467,8 +534,8 @@ public class AddRecordView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSpinner QtySpinner;
     private javax.swing.JButton addRecord;
-    private javax.swing.JComboBox<String> cbCPP;
     private javax.swing.JComboBox<String> cbPPP;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -491,7 +558,6 @@ public class AddRecordView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JLabel l_date;
     private javax.swing.JLabel l_time;
     private javax.swing.JPanel logBackground;
@@ -500,7 +566,8 @@ public class AddRecordView extends javax.swing.JFrame {
     private javax.swing.JPanel logoSide3;
     private javax.swing.JPanel logoSide5;
     private javax.swing.JLabel printingType;
-    private javax.swing.JComboBox<String> productName;
+    private javax.swing.JComboBox<String> productNameCB;
+    private javax.swing.JComboBox<String> productType;
     private javax.swing.JButton signOut;
     private javax.swing.JButton submitBut;
     private javax.swing.JButton viewRecord;
