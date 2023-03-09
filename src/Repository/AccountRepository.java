@@ -69,7 +69,7 @@ public class AccountRepository extends BaseRepository {
                 
                 Connection conn = this.createSQLConnection();
                 
-                String searchUser = "select * from AccountTable where username = ?";
+                String searchUser = "select * from AccountTable where Username = ?";
                 PreparedStatement userSearch = conn.prepareStatement(searchUser);
                 userSearch.setString(1, userStr);
                 
@@ -223,7 +223,7 @@ public class AccountRepository extends BaseRepository {
             }
             
             //verify that username is existing
-            String searchUser = "Select username from AccountTable where username='"+userStr+"'";
+            String searchUser = "Select username from AccountTable where Username='"+userStr+"'";
             PreparedStatement userSearch = conn.prepareStatement(searchUser);
             ResultSet res = userSearch.executeQuery();
                 
