@@ -103,7 +103,7 @@ public class ProductRepository extends BaseRepository {
                     "INSERT INTO ProductEntryTable VALUES (null, ?, ?, ?);"
             );
             pStmt.setInt(1, productEntry.getProductId());
-            pStmt.setInt(2, productEntry.getProductId());
+            pStmt.setInt(2, productEntry.getQty());
             pStmt.setTimestamp(3, productEntry.getEntryDate());
             
             pStmt.executeUpdate();
