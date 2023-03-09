@@ -223,7 +223,7 @@ public class AccountRepository extends BaseRepository {
             }
             
             //verify that username is existing
-            String searchUser = "Select username from accounts where username='"+userStr+"'";
+            String searchUser = "Select username from AccountTable where username='"+userStr+"'";
             PreparedStatement userSearch = conn.prepareStatement(searchUser);
             ResultSet res = userSearch.executeQuery();
                 

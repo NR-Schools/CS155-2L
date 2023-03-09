@@ -10,6 +10,7 @@ CREATE TABLE AccountTable (
     ContactNumber VARCHAR(20),
 	EmailAddress VARCHAR(100)
 );
+SELECT * FROM AccountTable;
 DROP TABLE AccountTable;
 
 
