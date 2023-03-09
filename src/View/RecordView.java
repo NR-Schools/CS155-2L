@@ -15,7 +15,6 @@ import javax.swing.border.LineBorder;
 public class RecordView extends javax.swing.JFrame {
     
     
-    String x;
     int i =0;
     public RecordView() {
         initComponents(); 
@@ -58,7 +57,7 @@ public class RecordView extends javax.swing.JFrame {
         Date d = new Date();
         SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
         String dat = s.format(d);
-        l_date.setText(dat);
+        curr_date.setText(dat);
     }
     public void showTime(){
         
@@ -68,10 +67,11 @@ public class RecordView extends javax.swing.JFrame {
                 Date d = new Date();
                 SimpleDateFormat s = new SimpleDateFormat("hh:mm aa");
                 String tim = s.format(d);
-                l_time.setText(tim);
-                if(TIME.getText().equals(l_time.getText()) &&DTBA.getText().equals(l_date.getText()) &&i == 0){
+                curr_time.setText(tim);
+                if(targetTime.getText().equals(curr_time.getText()) && targetDate.getText().equals(curr_date.getText()) &&i == 0){
                      i++;
                      JOptionPane.showMessageDialog(logBackground,"YOU HAVE REACHED YOUR GOAL CONGRATULATION!");
+                     goalStatus.setText("Achieved");
                 }
             }
         }).start();
@@ -93,9 +93,9 @@ public class RecordView extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        l_time = new javax.swing.JLabel();
+        curr_time = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        l_date = new javax.swing.JLabel();
+        curr_date = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -121,8 +121,8 @@ public class RecordView extends javax.swing.JFrame {
         E2 = new javax.swing.JLabel();
         dayTimeCB = new javax.swing.JComboBox<>();
         goalPanel1 = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
-        DTBA = new javax.swing.JLabel();
+        goalStatus = new javax.swing.JLabel();
+        targetDate = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         curSales = new javax.swing.JLabel();
@@ -130,7 +130,9 @@ public class RecordView extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         toSales = new javax.swing.JLabel();
         resetButton = new javax.swing.JButton();
-        TIME = new javax.swing.JLabel();
+        targetTime = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
         jPanel19 = new javax.swing.JPanel();
         logoSide5 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
@@ -270,20 +272,20 @@ public class RecordView extends javax.swing.JFrame {
         jLabel21.setText("TIME:");
         logoSide3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 60, 40, -1));
 
-        l_time.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        l_time.setForeground(new java.awt.Color(255, 255, 255));
-        l_time.setText("0");
-        logoSide3.add(l_time, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 60, 90, -1));
+        curr_time.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
+        curr_time.setForeground(new java.awt.Color(255, 255, 255));
+        curr_time.setText("0");
+        logoSide3.add(curr_time, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 60, 90, -1));
 
         jLabel22.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("DATE:");
         logoSide3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 30, 40, -1));
 
-        l_date.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        l_date.setForeground(new java.awt.Color(255, 255, 255));
-        l_date.setText("0");
-        logoSide3.add(l_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 30, 90, -1));
+        curr_date.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
+        curr_date.setForeground(new java.awt.Color(255, 255, 255));
+        curr_date.setText("0");
+        logoSide3.add(curr_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 30, 90, -1));
 
         jPanel7.setBackground(new java.awt.Color(251, 215, 9));
 
@@ -473,17 +475,17 @@ public class RecordView extends javax.swing.JFrame {
         goalPanel1.setBackground(new java.awt.Color(251, 215, 9));
         goalPanel1.setLayout(null);
 
-        jLabel19.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(38, 38, 38));
-        jLabel19.setText("TARGET DATE/TIME:");
-        goalPanel1.add(jLabel19);
-        jLabel19.setBounds(0, 0, 140, 20);
+        goalStatus.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        goalStatus.setForeground(new java.awt.Color(38, 38, 38));
+        goalStatus.setText("NOT ACHIEVED");
+        goalPanel1.add(goalStatus);
+        goalStatus.setBounds(0, 90, 100, 20);
 
-        DTBA.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        DTBA.setForeground(new java.awt.Color(38, 38, 38));
-        DTBA.setText("MM-dd-yyyy");
-        goalPanel1.add(DTBA);
-        DTBA.setBounds(150, 0, 90, 20);
+        targetDate.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        targetDate.setForeground(new java.awt.Color(38, 38, 38));
+        targetDate.setText("MM-dd-yyyy");
+        goalPanel1.add(targetDate);
+        targetDate.setBounds(0, 20, 90, 20);
 
         jLabel14.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(38, 38, 38));
@@ -543,11 +545,23 @@ public class RecordView extends javax.swing.JFrame {
         goalPanel1.add(resetButton);
         resetButton.setBounds(160, 210, 110, 30);
 
-        TIME.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        TIME.setForeground(new java.awt.Color(38, 38, 38));
-        TIME.setText("hh:mm aa");
-        goalPanel1.add(TIME);
-        TIME.setBounds(260, 0, 70, 20);
+        targetTime.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        targetTime.setForeground(new java.awt.Color(38, 38, 38));
+        targetTime.setText("hh:mm aa");
+        goalPanel1.add(targetTime);
+        targetTime.setBounds(0, 40, 70, 20);
+
+        jLabel27.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(38, 38, 38));
+        jLabel27.setText("TARGET DATE/TIME:");
+        goalPanel1.add(jLabel27);
+        jLabel27.setBounds(0, 0, 140, 20);
+
+        jLabel28.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(38, 38, 38));
+        jLabel28.setText("STATUS:");
+        goalPanel1.add(jLabel28);
+        jLabel28.setBounds(0, 70, 70, 20);
 
         jPanel6.add(goalPanel1, "card3");
 
@@ -1066,7 +1080,6 @@ public class RecordView extends javax.swing.JFrame {
             
         }
         
-        
         String selectdate = ((JTextField)dateChooser.getDateEditor().getUiComponent()).getText();
         if(selectdate.equals("")){
             E2.setVisible(true);
@@ -1091,8 +1104,8 @@ public class RecordView extends javax.swing.JFrame {
             if(mm<10){
                 m = "0"+m;
             }
-            TIME.setText(h+":"+m+" "+dayTimeCB.getSelectedItem());
-            DTBA.setText(selectdate);
+            targetTime.setText(h+":"+m+" "+dayTimeCB.getSelectedItem());
+            targetDate.setText(selectdate);
             E2.setVisible(false);
             E1.setVisible(false);
             toSales.setText(targetSales.getText());
@@ -1101,6 +1114,7 @@ public class RecordView extends javax.swing.JFrame {
             setGoalButton.setVisible(false);
             newGoalButton.setVisible(true);
             i = 0;
+            goalStatus.setText("Not achieved");
             
         }
     }//GEN-LAST:event_setGoalButtonActionPerformed
@@ -1124,6 +1138,7 @@ public class RecordView extends javax.swing.JFrame {
         E2.setVisible(false);
         targetSales.setText(null);
         dateChooser.setDate(null);
+        
     }//GEN-LAST:event_newGoalButtonActionPerformed
 
     private void cancelButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelButtonMouseEntered
@@ -1154,13 +1169,14 @@ public class RecordView extends javax.swing.JFrame {
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
         toSales.setText("0");
-        DTBA.setText("MM-dd-yyyy");
-        TIME.setText("hh:mm aa");
+        targetDate.setText("MM-dd-yyyy");
+        targetTime.setText("hh:mm aa");
+        goalStatus.setText("Not achieved");
         i = 0;
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void dayTimeCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dayTimeCBActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_dayTimeCBActionPerformed
 
     public static void main(String args[]) {
@@ -1176,20 +1192,21 @@ public class RecordView extends javax.swing.JFrame {
     private javax.swing.JLabel CPPoverallSales;
     private javax.swing.JLabel CPPtotalSold;
     private javax.swing.JButton CPPview1;
-    private javax.swing.JLabel DTBA;
     private javax.swing.JLabel E1;
     private javax.swing.JLabel E2;
     private javax.swing.JLabel PPPoverallProfit;
     private javax.swing.JLabel PPPoverallSales;
     private javax.swing.JLabel PPPtotalSold;
     private javax.swing.JButton PPPview;
-    private javax.swing.JLabel TIME;
     private javax.swing.JButton addRecord;
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel curSales;
+    private javax.swing.JLabel curr_date;
+    private javax.swing.JLabel curr_time;
     private com.toedter.calendar.JDateChooser dateChooser;
     private javax.swing.JComboBox<String> dayTimeCB;
     private javax.swing.JPanel goalPanel1;
+    private javax.swing.JLabel goalStatus;
     private javax.swing.JSpinner hourSP;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1199,7 +1216,6 @@ public class RecordView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -1208,6 +1224,8 @@ public class RecordView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
@@ -1243,8 +1261,6 @@ public class RecordView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JLabel l_date;
-    private javax.swing.JLabel l_time;
     private javax.swing.JPanel logBackground;
     private javax.swing.JPanel logoSide;
     private javax.swing.JPanel logoSide1;
@@ -1258,8 +1274,10 @@ public class RecordView extends javax.swing.JFrame {
     private javax.swing.JButton setGoalButton;
     private javax.swing.JButton signOut;
     private javax.swing.JTable table2;
+    private javax.swing.JLabel targetDate;
     private javax.swing.JPanel targetForm;
     public javax.swing.JTextField targetSales;
+    private javax.swing.JLabel targetTime;
     public javax.swing.JLabel toSales;
     private javax.swing.JButton viewRecord;
     // End of variables declaration//GEN-END:variables
