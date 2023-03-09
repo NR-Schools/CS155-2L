@@ -23,7 +23,8 @@ public class LoginView extends javax.swing.JFrame {
     
     public LoginView() {
         initComponents();
-        
+        E1.setVisible(false);
+        E2.setVisible(false);
         provider = new RepositoryProvider();
     }
 
@@ -56,9 +57,9 @@ public class LoginView extends javax.swing.JFrame {
         E2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1440, 1024));
+        setResizable(false);
 
-        logBackground3.setBackground(new java.awt.Color(199, 149, 0));
+        logBackground3.setBackground(new java.awt.Color(255, 255, 102));
 
         logPage3.setBackground(new java.awt.Color(38, 38, 38));
         logPage3.setForeground(new java.awt.Color(119, 150, 109));
@@ -202,17 +203,17 @@ public class LoginView extends javax.swing.JFrame {
         logBackground3.setLayout(logBackground3Layout);
         logBackground3Layout.setHorizontalGroup(
             logBackground3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logBackground3Layout.createSequentialGroup()
-                .addContainerGap(123, Short.MAX_VALUE)
+            .addGroup(logBackground3Layout.createSequentialGroup()
+                .addGap(220, 220, 220)
                 .addComponent(logPage3, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(109, 109, 109))
+                .addContainerGap(220, Short.MAX_VALUE))
         );
         logBackground3Layout.setVerticalGroup(
             logBackground3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logBackground3Layout.createSequentialGroup()
-                .addContainerGap(118, Short.MAX_VALUE)
-                .addComponent(logPage3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(107, 107, 107))
+            .addGroup(logBackground3Layout.createSequentialGroup()
+                .addGap(212, 212, 212)
+                .addComponent(logPage3, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(212, 212, 212))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -223,14 +224,15 @@ public class LoginView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(logBackground3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(logBackground3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void createBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBTActionPerformed
-        this.dispose();
+        this.setVisible(false);
         new CreateAccountView().setVisible(true);
     }//GEN-LAST:event_createBTActionPerformed
 
@@ -254,7 +256,7 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_loginBTActionPerformed
 
     private void forgotBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgotBTActionPerformed
-        this.dispose();
+        this.setVisible(false);
         new ForgotPasswordView().setVisible(true);
     }//GEN-LAST:event_forgotBTActionPerformed
 

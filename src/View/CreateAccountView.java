@@ -24,6 +24,9 @@ public class CreateAccountView extends javax.swing.JFrame {
     
     public CreateAccountView() {
         initComponents();
+        E1.setVisible(false);
+        E2.setVisible(false);
+        E3.setVisible(false);
         
         provider = new RepositoryProvider();
     }
@@ -63,9 +66,10 @@ public class CreateAccountView extends javax.swing.JFrame {
         E3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1440, 1024));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setResizable(false);
 
-        logBackground.setBackground(new java.awt.Color(199, 149, 0));
+        logBackground.setBackground(new java.awt.Color(255, 255, 102));
 
         logPage.setBackground(new java.awt.Color(38, 38, 38));
         logPage.setForeground(new java.awt.Color(119, 150, 109));
@@ -228,17 +232,17 @@ public class CreateAccountView extends javax.swing.JFrame {
         logBackground.setLayout(logBackgroundLayout);
         logBackgroundLayout.setHorizontalGroup(
             logBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(logBackgroundLayout.createSequentialGroup()
-                .addGap(114, 114, 114)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logBackgroundLayout.createSequentialGroup()
+                .addContainerGap(220, Short.MAX_VALUE)
                 .addComponent(logPage, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addGap(220, 220, 220))
         );
         logBackgroundLayout.setVerticalGroup(
             logBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(logBackgroundLayout.createSequentialGroup()
-                .addGap(64, 64, 64)
+                .addGap(212, 212, 212)
                 .addComponent(logPage, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addGap(212, 212, 212))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -249,14 +253,17 @@ public class CreateAccountView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(logBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(logBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void createAccBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccBTActionPerformed
-        // Check input validity
+        
         
         AccountValidateModel accountValidate = provider.getAccountRepo().createAccountInputCheck(
                 userTF.getText().trim(), passTF.getText().trim(), conpassTF.getText().trim(), CctNum.getText().trim(), CemailTF.getText().trim(),
@@ -266,6 +273,8 @@ public class CreateAccountView extends javax.swing.JFrame {
         if(accountValidate.isValid()) {
             provider.getAccountRepo().createAccount(accountValidate.getModel());
             JOptionPane.showMessageDialog(null, "Successfully created account");
+            this.setVisible(false);
+            new LoginView().setVisible(true);
         }
         
     }//GEN-LAST:event_createAccBTActionPerformed
@@ -273,7 +282,7 @@ public class CreateAccountView extends javax.swing.JFrame {
     private void cancelBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBTActionPerformed
         
         // Destroy this instance and create new LoginView instance to show
-        this.dispose();
+        this.setVisible(false);
         new LoginView().setVisible(true);
     }//GEN-LAST:event_cancelBTActionPerformed
 
