@@ -30,6 +30,9 @@ public class AddRecordView extends javax.swing.JFrame {
     
     public AddRecordView() {
         initComponents();
+        
+        provider = new RepositoryProvider();
+        
         cbPPP.setVisible(false);
         showDate();
         showTime();
@@ -420,6 +423,7 @@ public class AddRecordView extends javax.swing.JFrame {
             QtyInt = Integer.parseInt(QtySpinner.getValue().toString());
         }
         catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Invalid Quantity");
             return;
         }
 
