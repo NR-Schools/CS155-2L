@@ -56,13 +56,8 @@ public class RecordView extends javax.swing.JFrame {
         E2.setVisible(false);
         JTextFieldDateEditor editor = (JTextFieldDateEditor)dateChooser.getDateEditor();
         editor.setEditable(false);
-        
-        
     }
     
-    
-   
-   
     public void showDate(){
         Date d = new Date();
         SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
@@ -70,19 +65,15 @@ public class RecordView extends javax.swing.JFrame {
         curr_date.setText(dat);
     }
     public void showTime(){
-        
-        new Timer(0,new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent ae){
-                Date d = new Date();
-                SimpleDateFormat s = new SimpleDateFormat("hh:mm aa");
-                String tim = s.format(d);
-                curr_time.setText(tim);
-                if(targetTime.getText().equals(curr_time.getText()) && targetDate.getText().equals(curr_date.getText()) &&i == 0){
-                     i++;
-                     JOptionPane.showMessageDialog(logBackground,"YOU HAVE REACHED YOUR GOAL CONGRATULATION!");
-                     goalStatus.setText("Achieved");
-                }
+        new Timer(0, (ActionEvent action) -> {
+            Date d = new Date();
+            SimpleDateFormat s = new SimpleDateFormat("hh:mm aa");
+            String tim = s.format(d);
+            curr_time.setText(tim);
+            if(targetTime.getText().equals(curr_time.getText()) && targetDate.getText().equals(curr_date.getText()) &&i == 0){
+                i++;
+                JOptionPane.showMessageDialog(logBackground,"YOU HAVE REACHED YOUR GOAL CONGRATULATION!");
+                goalStatus.setText("Achieved");
             }
         }).start();
         

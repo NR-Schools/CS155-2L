@@ -1,7 +1,7 @@
 -- CREATE DATABASE cs155_2l_db;
 
 USE cs155_2l_db; -- LOCAL DB (Can be changed depending on ur db name)
-USE sql12602216; -- REMOTE DB ONLY FOR DEBUGGING
+USE sql12604574; -- REMOTE DB ONLY FOR DEBUGGING
 
 CREATE TABLE AccountTable (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
@@ -45,6 +45,25 @@ CREATE TABLE ProductEntryTable (
 );
 DROP TABLE ProductEntryTable;
 SELECT * FROM ProductEntryTable;
+
+
+
+CREATE TABLE GoalTable (
+	Id INT PRIMARY KEY AUTO_INCREMENT,
+    Status INT,	-- By Default: Not Achieved (False)
+    TargetSales DOUBLE, -- Set By User
+    CurrentSales DOUBLE, -- Will change as sales occurs
+    EntryDate TIMESTAMP,
+    DeadlineDate TIMESTAMP
+);
+SELECT * FROM GoalTable;
+INSERT INTO GoalTable VALUES (null, 0, 69.0, 0.0, "2023/03/10", "2023/12/21");
+TRUNCATE GoalTable;
+DROP TABLE GoalTable;
+
+
+
+
 
 
 -- Test Data
