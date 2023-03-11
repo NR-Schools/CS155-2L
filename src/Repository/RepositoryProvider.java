@@ -18,4 +18,8 @@ public class RepositoryProvider {
     public ProductRepository getProductRepo() {
         return new ProductRepository();
     }
+    
+    public GoalRepository getGoalRepo() {
+        return new GoalRepository();
+    }
 }

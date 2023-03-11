@@ -52,7 +52,6 @@ CREATE TABLE GoalTable (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
     Status INT,	-- By Default: Not Achieved (False)
     TargetSales DOUBLE, -- Set By User
-    CurrentSales DOUBLE, -- Will change as sales occurs
     EntryDate TIMESTAMP,
     DeadlineDate TIMESTAMP
 );
@@ -111,3 +110,10 @@ GROUP BY
 
 
 SELECT * FROM ProductTable WHERE TypeId=1;
+
+SELECT
+    IFNULL(SUM(Qty*Sales_Multiplier), 0) AS Sales
+FROM 
+    ProductTable
+    LEFT JOIN ProductEntryTable ON ProductTable.Id = ProductEntryTable.ProductId
+WHERE EntryDate > '2023/3/10';

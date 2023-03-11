@@ -3,7 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/hp/Downloads/Mapua/College/2/3rd/CS155-2L%20-%20BM2/CS155-2L/src/View/AddRecordView.java</file>
+            <file>file:/C:/Users/hp/Downloads/Mapua/College/2/3rd/CS155-2L%20-%20BM2/CS155-2L/src/View/RecordView.java</file>
+            <file>file:/C:/Users/hp/Downloads/Mapua/College/2/3rd/CS155-2L%20-%20BM2/CS155-2L/src/Repository/GoalRepository.java</file>
+            <file>file:/C:/Users/hp/Downloads/Mapua/College/2/3rd/CS155-2L%20-%20BM2/CS155-2L/src/Repository/BaseRepository.java</file>
+            <file>file:/C:/Users/hp/Downloads/Mapua/College/2/3rd/CS155-2L%20-%20BM2/CS155-2L/src/Model/GoalModel.java</file>
         </group>
     </open-files>
 </project-private>

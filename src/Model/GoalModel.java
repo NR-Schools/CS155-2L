@@ -16,7 +16,7 @@ public class GoalModel {
     public enum GoalStatus { NotAchieved, Achieved };
     private GoalStatus Status;
     private double TargetSales;
-    private double CurrentSales;
+    private double CurrentSales; // Dynamically Calculated From Another Query
     private Timestamp EntryDate;
     private Timestamp DeadlineDate;
 
@@ -71,5 +71,13 @@ public class GoalModel {
         this.DeadlineDate = DeadlineDate;
     }
     
-    
+    public String getStatusString() {
+        switch(this.Status) {
+            case NotAchieved:
+                return "Not achieved";
+            case Achieved:
+                return "Achieved";
+        }
+        return "";
+    }
 }
