@@ -59,22 +59,6 @@ public class GoalRepository extends BaseRepository {
             goal.setEntryDate(result.getTimestamp("EntryDate"));
             goal.setDeadlineDate(result.getTimestamp("DeadlineDate"));
             
-            // Get Current Sales via Another Query
-            PreparedStatement pStmt = conn.prepareStatement(""
-                    + "SELECT\n" +
-                    "    IFNULL(SUM(Qty*Sales_Multiplier), 0) AS Sales\n" +
-                    "FROM \n" +
-                    "    ProductTable\n" +
-                    "    LEFT JOIN ProductEntryTable ON ProductTable.Id = ProductEntryTable.ProductId\n" +
-                    "WHERE EntryDate > ?;"
-            );
-            pStmt.setTimestamp(1, result.getTimestamp("EntryDate"));
-            
-            ResultSet salesResult = pStmt.executeQuery();
-            salesResult.next();
-            
-            goal.setCurrentSales(salesResult.getDouble("Sales"));
-            
             conn.close();
             
             return goal;

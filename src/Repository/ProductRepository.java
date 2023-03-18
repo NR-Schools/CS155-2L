@@ -114,4 +114,30 @@ public class ProductRepository extends BaseRepository {
             Logger.getLogger(ProductRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public double getCurrentSales() {
+        double currSales = 0;
+        try {
+            Connection conn = this.createSQLConnection();
+            
+            Statement stmt = conn.createStatement();
+            
+            ResultSet result = stmt.executeQuery(""
+                    + "SELECT\n" +
+                    "    IFNULL(SUM(Qty*Sales_Multiplier), 0) AS Sales\n" +
+                    "FROM \n" +
+                    "    ProductTable\n" +
+                    "    LEFT JOIN ProductEntryTable ON ProductTable.Id = ProductEntryTable.ProductId;"
+            );
+            result.next();
+            
+            currSales = result.getDouble("Sales");
+            
+            conn.close();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ProductRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return currSales;
+    }
 }
