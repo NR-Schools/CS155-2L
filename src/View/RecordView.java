@@ -8,10 +8,13 @@ import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.border.Border;
@@ -38,6 +41,9 @@ public class RecordView extends javax.swing.JFrame {
         updateUserGoalUI();
         showDate();
         showTime();
+        
+        
+        
     }
     
     private void CustomUIAdjustments() {
@@ -66,6 +72,7 @@ public class RecordView extends javax.swing.JFrame {
         newGoalButton.setVisible(false);
         E1.setVisible(false);
         E2.setVisible(false);
+        E3.setVisible(false);
         JTextFieldDateEditor editor = (JTextFieldDateEditor)dateChooser.getDateEditor();
         editor.setEditable(false);
     }
@@ -106,7 +113,7 @@ public class RecordView extends javax.swing.JFrame {
             targetDate.setText("MM-dd-yyyy");
             targetTime.setText("hh:mm aa");
             goalStatus.setText("NOT ACHIEVED");
-            toSales.setText("0");
+            toSales.setText("0.0");
             
             newGoalButton.setVisible(true);
             goalPanel1.setVisible(true);
@@ -140,10 +147,10 @@ public class RecordView extends javax.swing.JFrame {
         
         if(!isAchievedPopupShown) {
             if(currentSales > userGoal.getTargetSales()) {
-                JOptionPane.showMessageDialog(rootPane, "YOU HAVE REACHED YOUR GOAL CONGRATULATION! :>");
+                JOptionPane.showMessageDialog(rootPane, "TIME LIMIT REACHED:    YOU HAVE REACHED YOUR GOAL CONGRATULATION!");
             }
             else {
-                JOptionPane.showMessageDialog(rootPane, "YOU HAVE NOT REACHED YOUR GOAL! :<");
+                JOptionPane.showMessageDialog(rootPane, "TIME LIMIT REACHED: YOU HAVE NOT REACHED YOUR GOAL!");
             }
             
             isAchievedPopupShown = true;
@@ -199,6 +206,7 @@ public class RecordView extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         E2 = new javax.swing.JLabel();
         dayTimeCB = new javax.swing.JComboBox<>();
+        E3 = new javax.swing.JLabel();
         goalPanel1 = new javax.swing.JPanel();
         goalStatus = new javax.swing.JLabel();
         targetDate = new javax.swing.JLabel();
@@ -517,11 +525,11 @@ public class RecordView extends javax.swing.JFrame {
 
         hourSP.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
         targetForm.add(hourSP);
-        hourSP.setBounds(220, 150, 45, 40);
+        hourSP.setBounds(220, 150, 64, 40);
 
         minutesSP.setModel(new javax.swing.SpinnerNumberModel(1, 1, 59, 1));
         targetForm.add(minutesSP);
-        minutesSP.setBounds(300, 150, 45, 40);
+        minutesSP.setBounds(300, 150, 64, 40);
 
         jLabel26.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(38, 38, 38));
@@ -544,6 +552,13 @@ public class RecordView extends javax.swing.JFrame {
         });
         targetForm.add(dayTimeCB);
         dayTimeCB.setBounds(370, 150, 60, 40);
+
+        E3.setBackground(new java.awt.Color(255, 51, 51));
+        E3.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
+        E3.setForeground(new java.awt.Color(255, 51, 51));
+        E3.setText("INVALID INPUT");
+        targetForm.add(E3);
+        E3.setBounds(220, 190, 74, 14);
 
         jPanel6.add(targetForm, "card2");
 
@@ -576,7 +591,7 @@ public class RecordView extends javax.swing.JFrame {
 
         curSales.setFont(new java.awt.Font("Trebuchet MS", 0, 30)); // NOI18N
         curSales.setForeground(new java.awt.Color(38, 38, 38));
-        curSales.setText("0");
+        curSales.setText("0.0");
         goalPanel1.add(curSales);
         curSales.setBounds(240, 70, 210, 36);
 
@@ -594,7 +609,7 @@ public class RecordView extends javax.swing.JFrame {
 
         toSales.setFont(new java.awt.Font("Trebuchet MS", 0, 30)); // NOI18N
         toSales.setForeground(new java.awt.Color(38, 38, 38));
-        toSales.setText("0");
+        toSales.setText("0.0");
         goalPanel1.add(toSales);
         toSales.setBounds(240, 160, 210, 36);
 
@@ -626,13 +641,13 @@ public class RecordView extends javax.swing.JFrame {
         goalPanel1.add(targetTime);
         targetTime.setBounds(0, 40, 70, 20);
 
-        jLabel27.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel27.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(38, 38, 38));
         jLabel27.setText("TARGET DATE/TIME:");
         goalPanel1.add(jLabel27);
         jLabel27.setBounds(0, 0, 140, 20);
 
-        jLabel28.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(38, 38, 38));
         jLabel28.setText("STATUS:");
         goalPanel1.add(jLabel28);
@@ -1221,70 +1236,112 @@ public class RecordView extends javax.swing.JFrame {
     }//GEN-LAST:event_CPPview1ActionPerformed
 
     private void setGoalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setGoalButtonActionPerformed
+            E1.setVisible(false);
+            E2.setVisible(false);
+            E3.setVisible(false);
+            boolean isValid = true;
+        try{                                              
+            
+            // Check Inputs
+            int day_night_val = 0;
+            Calendar selectedDate = dateChooser.getCalendar();
+            Calendar currentDate = Calendar.getInstance();
+            Calendar currentTime = Calendar.getInstance();
+            SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
+            currentTime.setTime(time.parse(curr_time.getText()));
+            SimpleDateFormat date = new SimpleDateFormat("MM-dd-yyyy");
+            currentDate.setTime(date.parse(curr_date.getText()));
+            int targetSalesEntered = 0;
+            
+            try{
+                targetSalesEntered = Integer.parseInt(targetSales.getText());
+            }catch(NumberFormatException ex){   
+                E1.setVisible(true);
+                isValid = false;
+            }
+            
+            if(selectedDate == null ){
+                E2.setVisible(true);
+                isValid = false;
+            }
+            
+            if(selectedDate.get(Calendar.MONTH) == currentDate.get(Calendar.MONTH) && selectedDate.get(Calendar.DAY_OF_MONTH) == currentDate.get(Calendar.DAY_OF_MONTH)
+                    && selectedDate.get(Calendar.YEAR) == currentDate.get(Calendar.YEAR)){
+                if("PM".equals(dayTimeCB.getSelectedItem())){
+                   day_night_val = 1;
+               }
+               if(currentTime.get(Calendar.AM_PM)== day_night_val){
+                   if(currentTime.get(Calendar.HOUR) > (Integer)hourSP.getValue()){
+                       E3.setVisible(true);
+                       isValid = false;
+                   }
+                   if(currentTime.get(Calendar.HOUR) == (Integer)hourSP.getValue()){
+                       if(currentTime.get(Calendar.MINUTE) > (Integer)minutesSP.getValue()){
+                           E3.setVisible(true);
+                           isValid = false;
+                       }
+                   }
+               }
+               if(currentTime.get(Calendar.AM_PM) == 1 && day_night_val == 0){
+                   E3.setVisible(true);
+                   isValid = false;
+               }
+            }else{
+                E3.setVisible(false);
+                isValid = true;
+            }
+            
+            if(selectedDate.before(currentDate)){
+                E2.setVisible(true);
+                isValid= false;  
+            }
+   
+            if (!isValid) {
+                return;
+            }
+            
+            // Adjust Values
+            int hours = (Integer)hourSP.getValue();
+            int minutes = (Integer)minutesSP.getValue();
+            if ("PM".equals(dayTimeCB.getSelectedItem())) hours+=12;
+                        
+            // Set Goal
+            LocalDateTime dateTime = LocalDateTime.of(
+                    selectedDate.get(Calendar.YEAR),
+                    selectedDate.get(Calendar.MONTH) +1,
+                    selectedDate.get(Calendar.DAY_OF_MONTH),
+                    hours,
+                    minutes
+            );
+             
+            // Construct Goal
+            GoalModel goal = new GoalModel();
+            goal.setStatus(GoalModel.GoalStatus.NotAchieved);
+            goal.setTargetSales(targetSalesEntered);
+            goal.setEntryDate(new Timestamp(new java.util.Date().getTime()));
+            goal.setDeadlineDate(Timestamp.valueOf(dateTime));
+            
+            // Submit to Database
+            provider.getGoalRepo().SetGoal(goal);
+            userGoal = goal;
+            
+            // Show UI
+            String dateFormatted = dateTime.toLocalDate().format(DateTimeFormatter.ofPattern("MM-dd-yyyy"));
+            String timeFormatted = dateTime.toLocalTime().format(DateTimeFormatter.ofPattern("hh:mm a"));
+            targetDate.setText(dateFormatted);
+            targetTime.setText(timeFormatted);
+            toSales.setText(targetSales.getText());
+            goalStatus.setText(goal.getStatusString());
+            
+            goalPanel1.setVisible(true);
+            targetForm.setVisible(false);
+            setGoalButton.setVisible(false);
+            newGoalButton.setVisible(true);
+            
+        }catch(ParseException ex){
+            Logger.getLogger(RecordView.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        // Check Inputs
-        boolean isValid = true;
-        E1.setVisible(false);
-        E2.setVisible(false);
-        
-        Calendar selectedDate = dateChooser.getCalendar();
-        int targetSalesEntered = 0;
-        
-        if(selectedDate == null){
-            E2.setVisible(true);
-            isValid = false;
-        }
-        
-        try{
-            targetSalesEntered = Integer.parseInt(targetSales.getText());
-        }catch(NumberFormatException ex){
-            E1.setVisible(true);
-            isValid = false;
-        }
-        
-        if (!isValid) return;
-        
-        // Adjust Values
-        int hours = (Integer)hourSP.getValue();
-        int minutes = (Integer)minutesSP.getValue();
-        if ("PM".equals(dayTimeCB.getSelectedItem().toString())) hours += 12;
-        
-        
-        // Set Goal
-        LocalDateTime dateTime = LocalDateTime.of(
-                selectedDate.get(Calendar.YEAR),
-                selectedDate.get(Calendar.MONTH) +1,
-                selectedDate.get(Calendar.DAY_OF_MONTH),
-                hours,
-                minutes
-        );
-        
-        
-        // Construct Goal
-        GoalModel goal = new GoalModel();
-        goal.setStatus(GoalModel.GoalStatus.NotAchieved);
-        goal.setTargetSales(targetSalesEntered);
-        goal.setEntryDate(new Timestamp(new java.util.Date().getTime()));
-        goal.setDeadlineDate(Timestamp.valueOf(dateTime));
-        
-        
-        // Submit to Database
-        provider.getGoalRepo().SetGoal(goal);
-        userGoal = goal;
-        
-        
-        // Show UI                
-        String dateFormatted = dateTime.toLocalDate().format(DateTimeFormatter.ofPattern("MM-dd-yyyy"));
-        String timeFormatted = dateTime.toLocalTime().format(DateTimeFormatter.ofPattern("hh:mm a"));
-        targetDate.setText(dateFormatted);
-        targetTime.setText(timeFormatted);
-        toSales.setText(targetSales.getText());
-        goalStatus.setText(goal.getStatusString());
-        
-        goalPanel1.setVisible(true);
-        targetForm.setVisible(false);
-        setGoalButton.setVisible(false);
-        newGoalButton.setVisible(true);
     }//GEN-LAST:event_setGoalButtonActionPerformed
 
     private void newGoalButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newGoalButtonMouseEntered
@@ -1372,6 +1429,7 @@ public class RecordView extends javax.swing.JFrame {
     private javax.swing.JButton CPPview1;
     private javax.swing.JLabel E1;
     private javax.swing.JLabel E2;
+    private javax.swing.JLabel E3;
     private javax.swing.JLabel PPPoverallProfit;
     private javax.swing.JLabel PPPoverallSales;
     private javax.swing.JLabel PPPtotalSold;
