@@ -1041,7 +1041,7 @@ public class RecordView extends javax.swing.JFrame {
 
     private void PPPviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PPPviewActionPerformed
         // TODO add your handling code here:
-        //jLabel44.setText("PHOTO PAPER PRINTING");
+        jLabel44.setText("PHOTO PAPER PRINTING");
 
         // Request To DB
         ArrayList<ProductSummary> prod_sum_arr = provider.getProductRepo().getProductSummaries("Photopaper");
@@ -1209,7 +1209,7 @@ public class RecordView extends javax.swing.JFrame {
     }//GEN-LAST:event_CPPview1MouseExited
 
     private void CPPview1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CPPview1ActionPerformed
-        //jLabel44.setText("COSCARD/PHOTOCARD");
+        jLabel44.setText("COSCARD/PHOTOCARD");
         
         // Request To DB
         ArrayList<ProductSummary> prod_sum_arr = provider.getProductRepo().getProductSummaries("Photocard");

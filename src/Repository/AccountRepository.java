@@ -26,8 +26,7 @@ public class AccountRepository extends BaseRepository {
     
     // These are for validation, it can be moved to another class
     public AccountValidateModel createAccountInputCheck(
-            String userStr, String passStr, String conPassStr, String pNumberStr, String emailStr,
-            JLabel InvalidUsernameError, JLabel InvalidPasswordError, JLabel InvalidConfirmPassError) {
+            String userStr, String passStr, String conPassStr,JLabel InvalidUsernameError, JLabel InvalidPasswordError, JLabel InvalidConfirmPassError) {
 
         AccountModel account = new AccountModel();
         boolean isInfoValid = true;
@@ -107,24 +106,7 @@ public class AccountRepository extends BaseRepository {
                 account.setPassword(passStr);
             }
         }
-        
-        //phone
-        switch (pNumberStr.length()) {
-            case 0:
-                account.setContactNumber("NA");
-                break;
-            case 11:
-                account.setContactNumber(pNumberStr);
-                break;
-            default:
-                JOptionPane.showMessageDialog(null, "Invalid Phone Number.");
-                isInfoValid = false;
-                break;
-        }
-        
-        //email
-        if(emailStr.length() == 0) account.setEmailAddress("NA");
-        else account.setEmailAddress(emailStr);
+       
             
         //check database if there is an account
         try {

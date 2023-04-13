@@ -53,12 +53,8 @@ public class CreateAccountView extends javax.swing.JFrame {
         divider1 = new javax.swing.JPanel();
         passL = new javax.swing.JLabel();
         divider2 = new javax.swing.JPanel();
-        ctNumL = new javax.swing.JLabel();
-        CctNum = new javax.swing.JTextField();
         conPassL = new javax.swing.JLabel();
         conpassTF = new javax.swing.JTextField();
-        CemailTF = new javax.swing.JTextField();
-        emailL = new javax.swing.JLabel();
         userL = new javax.swing.JLabel();
         userTF = new javax.swing.JTextField();
         E1 = new javax.swing.JLabel();
@@ -180,13 +176,6 @@ public class CreateAccountView extends javax.swing.JFrame {
 
         logPage.add(divider2, new org.netbeans.lib.awtextra.AbsoluteConstraints(567, 573, -1, -1));
 
-        ctNumL.setForeground(new java.awt.Color(255, 255, 255));
-        ctNumL.setText("Contact Number (Optional)");
-        logPage.add(ctNumL, new org.netbeans.lib.awtextra.AbsoluteConstraints(578, 366, -1, -1));
-
-        CctNum.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
-        logPage.add(CctNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(578, 389, 258, 40));
-
         conPassL.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
         conPassL.setForeground(new java.awt.Color(255, 255, 255));
         conPassL.setText("Confirm Password");
@@ -194,14 +183,6 @@ public class CreateAccountView extends javax.swing.JFrame {
 
         conpassTF.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
         logPage.add(conpassTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(578, 319, 258, 40));
-
-        CemailTF.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
-        logPage.add(CemailTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(578, 459, 258, 40));
-
-        emailL.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
-        emailL.setForeground(new java.awt.Color(255, 255, 255));
-        emailL.setText("Email Address (Optional)");
-        logPage.add(emailL, new org.netbeans.lib.awtextra.AbsoluteConstraints(578, 436, -1, -1));
 
         userL.setForeground(new java.awt.Color(255, 255, 255));
         userL.setText("Username (minimum of 3 characters)");
@@ -266,7 +247,7 @@ public class CreateAccountView extends javax.swing.JFrame {
         
         
         AccountValidateModel accountValidate = provider.getAccountRepo().createAccountInputCheck(
-                userTF.getText().trim(), passTF.getText().trim(), conpassTF.getText().trim(), CctNum.getText().trim(), CemailTF.getText().trim(),
+                userTF.getText().trim(), passTF.getText().trim(), conpassTF.getText().trim(),
                 E1, E2, E3
         );
         
@@ -322,8 +303,6 @@ public class CreateAccountView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField CctNum;
-    private javax.swing.JTextField CemailTF;
     private javax.swing.JLabel E1;
     private javax.swing.JLabel E2;
     private javax.swing.JLabel E3;
@@ -332,12 +311,10 @@ public class CreateAccountView extends javax.swing.JFrame {
     private javax.swing.JTextField conpassTF;
     private javax.swing.JButton createAccBT;
     private javax.swing.JLabel createTitle;
-    private javax.swing.JLabel ctNumL;
     private javax.swing.JLabel description1;
     private javax.swing.JLabel description2;
     private javax.swing.JPanel divider1;
     private javax.swing.JPanel divider2;
-    private javax.swing.JLabel emailL;
     private javax.swing.JPanel logBackground;
     private javax.swing.JPanel logPage;
     private javax.swing.JLabel logo;

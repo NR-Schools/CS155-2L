@@ -36,6 +36,8 @@ public class AddRecordView extends javax.swing.JFrame {
         cbPPP.setVisible(false);
         showDate();
         showTime();
+        E1.setVisible(false);
+        E2.setVisible(false);
     }
     public void showDate(){
         Date d = new Date();
@@ -48,7 +50,7 @@ public class AddRecordView extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae){
                 Date d = new Date();
-                SimpleDateFormat s = new SimpleDateFormat("hh:mm:ss");
+                SimpleDateFormat s = new SimpleDateFormat("hh:mm aa");
                 String tim = s.format(d);
                 l_time.setText(tim);
             }
@@ -95,6 +97,8 @@ public class AddRecordView extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        E1 = new javax.swing.JLabel();
+        E2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -299,6 +303,7 @@ public class AddRecordView extends javax.swing.JFrame {
 
         productType.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         productType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Coscard/Photocard Printing", "Photo Paper Printing" }));
+        productType.setSelectedIndex(-1);
         productType.setBorder(null);
         productType.setFocusable(false);
         productType.addActionListener(new java.awt.event.ActionListener() {
@@ -308,7 +313,7 @@ public class AddRecordView extends javax.swing.JFrame {
         });
         logoSide5.add(productType, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 230, 430, 30));
 
-        QtySpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        QtySpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
         logoSide5.add(QtySpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 440, 70, 30));
 
         jLabel8.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
@@ -317,6 +322,7 @@ public class AddRecordView extends javax.swing.JFrame {
         logoSide5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 190, -1));
 
         productNameCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Glossy", "Canvas Matte", "Leather", "Glitter", "3D", "Broken Glass Holo", "Holo" }));
+        productNameCB.setSelectedIndex(-1);
         logoSide5.add(productNameCB, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 340, 130, 30));
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
@@ -373,6 +379,18 @@ public class AddRecordView extends javax.swing.JFrame {
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/print.png"))); // NOI18N
         logoSide5.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, -1, 40));
 
+        E1.setBackground(new java.awt.Color(255, 51, 51));
+        E1.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
+        E1.setForeground(new java.awt.Color(255, 51, 51));
+        E1.setText("INVALID INPUT");
+        logoSide5.add(E1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 380, -1, -1));
+
+        E2.setBackground(new java.awt.Color(255, 51, 51));
+        E2.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
+        E2.setForeground(new java.awt.Color(255, 51, 51));
+        E2.setText("INVALID INPUT");
+        logoSide5.add(E2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 270, -1, -1));
+
         logBackground.add(logoSide5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, 1170, 760));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -411,9 +429,22 @@ public class AddRecordView extends javax.swing.JFrame {
 
     private void submitButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButActionPerformed
         // TODO add your handling code here:
+        boolean isValid = true;
         int productTypeInt = productType.getSelectedIndex() +1;
         int productNameInt = productNameCB.getSelectedIndex() +1;
-
+        
+        if(productType.getSelectedIndex()==-1){
+            E1.setVisible(true);
+            isValid = false;
+        }else{
+            E1.setVisible(false);
+        }
+        if(productNameCB.getSelectedIndex()==-1){
+            E2.setVisible(true);
+            isValid = false;
+        }else{
+            E2.setVisible(false);
+        }
         // Since Both are 7
         if (productTypeInt == 2) productNameInt += 7;
 
@@ -426,7 +457,9 @@ public class AddRecordView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Invalid Quantity");
             return;
         }
-
+        if(!isValid){
+            return;
+        }
         // Submit To DB
         ProductEntryModel productEntry = new ProductEntryModel();
         productEntry.setProductId(productNameInt);
@@ -464,7 +497,7 @@ public class AddRecordView extends javax.swing.JFrame {
         };
 
         productNameCB.removeAllItems();
-
+        
         if (productTypeInt == 1) {
             for ( String product : PhotoCardList ) {
                 productNameCB.addItem(product);
@@ -475,7 +508,6 @@ public class AddRecordView extends javax.swing.JFrame {
                 productNameCB.addItem(product);
             }
         }
-
 
 
         /*
@@ -538,6 +570,8 @@ public class AddRecordView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel E1;
+    private javax.swing.JLabel E2;
     private javax.swing.JSpinner QtySpinner;
     private javax.swing.JButton addRecord;
     private javax.swing.JComboBox<String> cbPPP;
