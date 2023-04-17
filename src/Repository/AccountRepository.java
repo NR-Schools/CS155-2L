@@ -201,21 +201,23 @@ public class AccountRepository extends BaseRepository {
             // return if username has error on input
             if(InvalidUsernameError.isVisible()) {
                 isInfoValid = false;
-                return new AccountValidateModel(account, isInfoValid);
+                //return new AccountValidateModel(account, isInfoValid);
             }
             
             //verify that username is existing
-            String searchUser = "Select username from AccountTable where Username='"+userStr+"'";
+            String searchUser = "Select Username from AccountTable where Username='"+userStr+"'";
             PreparedStatement userSearch = conn.prepareStatement(searchUser);
             ResultSet res = userSearch.executeQuery();
-                
-            while(res.next())
+            
+            // Fix FP_01
+            // Do not use while since entry in accounts table in database is ensured to be always 0 or 1
+            if(res.next())
             {
                 //if username is not existing
                 if(!userStr.equals(res.getString("Username"))) {
                     JOptionPane.showMessageDialog(null, "Incorrect username. Please try again.");
                     isInfoValid = false;
-                    return new AccountValidateModel(account, isInfoValid);
+                    //return new AccountValidateModel(account, isInfoValid);
                 }
                 
                 //verify if password and confirm password are same
@@ -224,8 +226,12 @@ public class AccountRepository extends BaseRepository {
                 {
                     JOptionPane.showMessageDialog(null, "Password doesn't match.");
                     isInfoValid = false;
-                    return new AccountValidateModel(account, isInfoValid);
+                    //return new AccountValidateModel(account, isInfoValid);
                 }
+            }
+            else {
+                InvalidUsernameError.setVisible(true);
+                isInfoValid = false;
             }
             
             conn.close();
