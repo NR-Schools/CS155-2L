@@ -36,8 +36,8 @@ public class AddRecordView extends javax.swing.JFrame {
         cbPPP.setVisible(false);
         showDate();
         showTime();
-        E1.setVisible(false);
         E2.setVisible(false);
+        E1.setVisible(false);
     }
     public void showDate(){
         Date d = new Date();
@@ -97,8 +97,8 @@ public class AddRecordView extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        E1 = new javax.swing.JLabel();
         E2 = new javax.swing.JLabel();
+        E1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -378,17 +378,17 @@ public class AddRecordView extends javax.swing.JFrame {
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/print.png"))); // NOI18N
         logoSide5.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, -1, 40));
 
-        E1.setBackground(new java.awt.Color(255, 51, 51));
-        E1.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
-        E1.setForeground(new java.awt.Color(255, 51, 51));
-        E1.setText("INVALID INPUT");
-        logoSide5.add(E1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 380, -1, -1));
-
         E2.setBackground(new java.awt.Color(255, 51, 51));
         E2.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
         E2.setForeground(new java.awt.Color(255, 51, 51));
         E2.setText("INVALID INPUT");
-        logoSide5.add(E2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 270, -1, -1));
+        logoSide5.add(E2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 380, -1, -1));
+
+        E1.setBackground(new java.awt.Color(255, 51, 51));
+        E1.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
+        E1.setForeground(new java.awt.Color(255, 51, 51));
+        E1.setText("INVALID INPUT");
+        logoSide5.add(E1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 270, -1, -1));
 
         logBackground.add(logoSide5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, 1170, 760));
 
@@ -507,6 +507,9 @@ public class AddRecordView extends javax.swing.JFrame {
                 productNameCB.addItem(product);
             }
         }
+        
+        // Fix: ASRT_01 - Missing Product Name
+        productNameCB.setSelectedItem(null);
 
 
         /*
