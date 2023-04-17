@@ -321,7 +321,6 @@ public class AddRecordView extends javax.swing.JFrame {
         jLabel8.setText("PRODUCT NAME:");
         logoSide5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 190, -1));
 
-        productNameCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Glossy", "Canvas Matte", "Leather", "Glitter", "3D", "Broken Glass Holo", "Holo" }));
         productNameCB.setSelectedIndex(-1);
         logoSide5.add(productNameCB, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 340, 130, 30));
 
