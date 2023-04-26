@@ -17,8 +17,8 @@ import java.util.logging.Logger;
  * @author --
  */
 public abstract class BaseRepository {
-    private final String USERNAME = "sql12612721";
-    private final String PASSWORD = "F2irnyBDfb";
+    private final String USERNAME = "sql12614457";
+    private final String PASSWORD = "12EiX5Aezk";
     
     // Assuming that database to be used is in local, for remote connections, replace "localhost" with the database url
     private final String LINK = "jdbc:mysql://sql12.freemysqlhosting.net:3306?useTimezone=true&serverTimezone=GMT%2B8";
@@ -30,7 +30,7 @@ public abstract class BaseRepository {
         Connection sql_con = DriverManager.getConnection(LINK, USERNAME, PASSWORD);
             
         Statement SetDB = sql_con.createStatement();
-        SetDB.executeUpdate("USE sql12612721"); // Change database name if necessary
+        SetDB.executeUpdate("USE sql12614457"); // Change database name if necessary
             
         return sql_con;
     }
